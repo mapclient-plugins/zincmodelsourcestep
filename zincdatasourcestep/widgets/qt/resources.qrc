@@ -1,0 +1,5 @@
+<RCC>
+  <qresource prefix="/zincdatasource/" >
+    <file>images/zinc_data_icon.png</file>
+  </qresource>
+</RCC>
