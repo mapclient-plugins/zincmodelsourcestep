@@ -19,67 +19,63 @@ This file is part of MAP Client. (http://launchpad.net/mapclient)
 '''
 import os
 
-from PySide import QtCore, QtGui
+from PySide import QtGui, QtCore
 
 from mountpoints.workflowstep import WorkflowStepMountPoint
 
-from zincmodelsourcestep.widgets.configuredialog import ConfigureDialog
-from zincmodelsourcestep.zincmodeldata import ZincModelData
+from zincdatasourcestep.widgets.configuredialog import ConfigureDialog
+from zincdatasourcestep.zincdatadata import ZincDataData
 
-class ZincModelSourceStep(WorkflowStepMountPoint):
+class ZincDataSourceStep(WorkflowStepMountPoint):
     '''
-    Zinc model source step supplies zinc model source files
-    from a location on disk.
+    Skeleton step which is intended to be used as a starting point
+    for new steps.
     '''
-
+    
     def __init__(self, location):
-        super(ZincModelSourceStep, self).__init__('Zinc Model Source', location)
-        self._state = ZincModelData()
-        self._icon = QtGui.QImage(':/zincmodelsource/images/zinc_model_icon.png')
-        self.addPort(('http://physiomeproject.org/workflow/1.0/rdf-schema#port',
-                      'http://physiomeproject.org/workflow/1.0/rdf-schema#provides',
-                      'http://physiomeproject.org/workflow/1.0/rdf-schema#zincmodeldata'))
-
+        super(ZincDataSourceStep, self).__init__('Zinc Data Source', location)
+        self._icon = QtGui.QImage(':/zincdatasource/images/zinc_data_icon.png')
+        self.addPort(('http://physiomeproject.org/workflow/1.0/rdf-schema#port', 'http://physiomeproject.org/workflow/1.0/rdf-schema#provides', 'http://physiomeproject.org/workflow/1.0/rdf-schema#zincdata'))
+        self._state = ZincDataData()
+        
     def configure(self):
         d = ConfigureDialog(self._state)
         d.setModal(True)
         if d.exec_():
             self._state = d.getState()
             self.serialize(self._location)
-
+            
         self._configured = d.validate()
         if self._configured and self._configuredObserver:
             self._configuredObserver()
-
+    
     def getIdentifier(self):
         return self._state._identifier
-
+     
     def setIdentifier(self, identifier):
         self._state._identifier = identifier
-
+     
     def serialize(self, location):
         configuration_file = os.path.join(location, getConfigFilename(self._state._identifier))
         s = QtCore.QSettings(configuration_file, QtCore.QSettings.IniFormat)
         s.beginGroup('state')
         s.setValue('identifier', self._state._identifier)
-        s.setValue('element', self._state._elementLocation)
-        s.setValue('node', self._state._nodeLocation)
+        s.setValue('data', self._state._dataLocation)
         s.endGroup()
-
+     
     def deserialize(self, location):
         configuration_file = os.path.join(location, getConfigFilename(self._state._identifier))
         s = QtCore.QSettings(configuration_file, QtCore.QSettings.IniFormat)
         s.beginGroup('state')
         self._state._identifier = s.value('identifier', '')
-        self._state._elementLocation = s.value('element', '')
-        self._state._nodeLocation = s.value('node', '')
+        self._state._dataLocation = s.value('data', '')
         s.endGroup()
         d = ConfigureDialog(self._state)
         self._configured = d.validate()
-
+        
     def portOutput(self):
         return self._state
-
+     
 def getConfigFilename(identifier):
     return identifier + '.conf'
 
