@@ -39,34 +39,34 @@ class ConfigureDialog(QDialog):
         QDialog.__init__(self, parent)
         self._ui = Ui_ConfigureDialog()
         self._ui.setupUi(self)
-        
+
         self.setState(state)
         self.validate()
         self._makeConnections()
-        
+
     def _makeConnections(self):
         self._ui.dataButton.clicked.connect(self._dataButtonClicked)
         self._ui.dataLineEdit.textChanged.connect(self.validate)
         self._ui.identifierLineEdit.textChanged.connect(self.validate)
-    
+
     def setState(self, state):
         self._ui.identifierLineEdit.setText(state._identifier)
         self._ui.dataLineEdit.setText(state._dataLocation)
-    
+
     def getState(self):
         state = ZincDataData()
         state._identifier = self._ui.identifierLineEdit.text()
         state._dataLocation = self._ui.dataLineEdit.text()
-        
+
         return state
-        
+
     def validate(self):
         identifier_valid = len(self._ui.identifierLineEdit.text()) > 0
         if identifier_valid:
             self._ui.identifierLineEdit.setStyleSheet(DEFAULT_STYLE_SHEET)
         else:
             self._ui.identifierLineEdit.setStyleSheet(REQUIRED_STYLE_SHEET)
-            
+
         data_valid = len(self._ui.dataLineEdit.text()) > 0
         if data_valid:
             self._ui.dataLineEdit.setStyleSheet(DEFAULT_STYLE_SHEET)
@@ -77,14 +77,14 @@ class ConfigureDialog(QDialog):
         self._ui.buttonBox.button(QDialogButtonBox.Ok).setEnabled(valid)
 
         return valid
-    
-    def _dataButtonClicked(self, line_edit):
-        (fileName, _) = QFileDialog.getOpenFileName(self, 'Select Zinc File', self._ui.previousLocationLabel.text()) 
-        
+
+    def _dataButtonClicked(self):
+        (fileName, _) = QFileDialog.getOpenFileName(self, 'Select Zinc File', self._ui.previousLocationLabel.text())
+
         if fileName:
             location = os.path.basename(fileName)
             self._ui.previousLocationLabel.setText(location)
             self._ui.dataLineEdit.setText(fileName)
-            
+
         self.validate()
-    
+
