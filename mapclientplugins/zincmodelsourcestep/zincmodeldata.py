@@ -17,3 +17,29 @@ This file is part of MAP Client. (http://launchpad.net/mapclient)
     You should have received a copy of the GNU General Public License
     along with MAP Client.  If not, see <http://www.gnu.org/licenses/>..
 '''
+
+class ZincModelData(object):
+    
+    def __init__(self):
+        self._identifier = ''
+        self._elementLocation = ''
+        self._nodeLocation = ''
+        
+    def elementFile(self):
+        return self._elementLocation
+
+    def setElementFile(self, element_file):
+        self._elementLocation = element_file
+    
+    def nodeFile(self):
+        return self._nodeLocation
+
+    def setNodeFile(self, node_file):
+        self._nodeLocation = node_file
+
+    def getIdentifier(self):
+        return self._identifier
+
+    def setIdentifier(self, identifier):
+        self._identifier = identifier
+
