@@ -79,7 +79,7 @@ class ZincModelSourceStep(WorkflowStepMountPoint):
         '''
         The framework will set the identifier for this step when it is loaded.
         '''
-        self._setIdentifier(identifier)
+        self._state.setIdentifier(identifier)
 
     def serialize(self):
         '''
@@ -98,7 +98,7 @@ class ZincModelSourceStep(WorkflowStepMountPoint):
 
         d = ConfigureDialog()
         d.identifierOccursCount = self._identifierOccursCount
-        d.setConfig(self._config)
+        d.setState(self._state)
         self._configured = d.validate()
 
 
