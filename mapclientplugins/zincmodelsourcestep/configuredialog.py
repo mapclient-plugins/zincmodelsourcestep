@@ -19,7 +19,7 @@ This file is part of MAP Client. (http://launchpad.net/mapclient)
 '''
 import os
 
-from PySide.QtGui import QDialog, QFileDialog, QDialogButtonBox
+from PySide2.QtWidgets import QDialog, QFileDialog, QDialogButtonBox
 
 from mapclientplugins.zincmodelsourcestep.ui_configuredialog import Ui_ConfigureDialog
 from mapclientplugins.zincmodelsourcestep.zincmodeldata import ZincModelData
