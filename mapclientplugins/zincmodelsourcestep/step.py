@@ -1,4 +1,3 @@
-
 '''
 MAP Client Plugin Step
 '''
@@ -10,6 +9,7 @@ from mapclient.mountpoints.workflowstep import WorkflowStepMountPoint
 from mapclientplugins.zincmodelsourcestep.configuredialog import ConfigureDialog
 from mapclientplugins.zincmodelsourcestep.zincmodeldata import ZincModelData
 
+
 class ZincModelSourceStep(WorkflowStepMountPoint):
     '''
     Skeleton step which is intended to be a helpful starting point
@@ -18,7 +18,7 @@ class ZincModelSourceStep(WorkflowStepMountPoint):
 
     def __init__(self, location):
         super(ZincModelSourceStep, self).__init__('Zinc Model Source', location)
-        self._configured = False # A step cannot be executed until it has been configured.
+        self._configured = False  # A step cannot be executed until it has been configured.
         self._category = 'Source'
         # Add any other initialisation code here:
         self._icon = QtGui.QImage(':/zincmodelsource/images/zinc_model_icon.png')
@@ -27,10 +27,9 @@ class ZincModelSourceStep(WorkflowStepMountPoint):
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#provides',
                       'http://physiomeproject.org/workflow/1.0/rdf-schema#zincmodeldata'))
         # Port data:
-        self._portData0 = None # http://physiomeproject.org/workflow/1.0/rdf-schema#zincmodeldata
+        self._portData0 = None  # http://physiomeproject.org/workflow/1.0/rdf-schema#zincmodeldata
         # Config:
         self._state = ZincModelData()
-
 
     def execute(self):
         '''
@@ -47,7 +46,7 @@ class ZincModelSourceStep(WorkflowStepMountPoint):
         The index is the index of the port in the port list.  If there is only one
         provides port for this step then the index can be ignored.
         '''
-        return self._portData0 # http://physiomeproject.org/workflow/1.0/rdf-schema#zincmodeldata
+        return self._portData0  # http://physiomeproject.org/workflow/1.0/rdf-schema#zincmodeldata
 
     def configure(self):
         '''
@@ -62,10 +61,10 @@ class ZincModelSourceStep(WorkflowStepMountPoint):
         dlg.setState(self._state)
         dlg.validate()
         dlg.setModal(True)
-        
+
         if dlg.exec_():
             self._state = dlg.getState()
-        
+
         self._configured = dlg.validate()
         self._configuredObserver()
 
@@ -88,7 +87,6 @@ class ZincModelSourceStep(WorkflowStepMountPoint):
         '''
         return json.dumps(self._state, default=lambda o: o.__dict__, sort_keys=True, indent=4)
 
-
     def deserialize(self, string):
         '''
         Add code to deserialize this step from string.  This method should
@@ -100,5 +98,3 @@ class ZincModelSourceStep(WorkflowStepMountPoint):
         d.identifierOccursCount = self._identifierOccursCount
         d.setState(self._state)
         self._configured = d.validate()
-
-

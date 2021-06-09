@@ -18,19 +18,20 @@ This file is part of MAP Client. (http://launchpad.net/mapclient)
     along with MAP Client.  If not, see <http://www.gnu.org/licenses/>..
 '''
 
+
 class ZincModelData(object):
-    
+
     def __init__(self):
         self._identifier = ''
         self._elementLocation = ''
         self._nodeLocation = ''
-        
+
     def elementFile(self):
         return self._elementLocation
 
     def setElementFile(self, element_file):
         self._elementLocation = element_file
-    
+
     def nodeFile(self):
         return self._nodeLocation
 
@@ -42,4 +43,3 @@ class ZincModelData(object):
 
     def setIdentifier(self, identifier):
         self._identifier = identifier
-
