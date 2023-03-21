@@ -1,7 +1,7 @@
-'''
+"""
 MAP Client, a program to generate detailed musculoskeletal models for OpenSim.
     Copyright (C) 2012  University of Auckland
-    
+
 This file is part of MAP Client. (http://launchpad.net/mapclient)
 
     MAP Client is free software: you can redistribute it and/or modify
@@ -16,7 +16,7 @@ This file is part of MAP Client. (http://launchpad.net/mapclient)
 
     You should have received a copy of the GNU General Public License
     along with MAP Client.  If not, see <http://www.gnu.org/licenses/>..
-'''
+"""
 import os
 
 from PySide6.QtWidgets import QDialog, QFileDialog, QDialogButtonBox
@@ -29,14 +29,14 @@ DEFAULT_STYLE_SHEET = ''
 
 
 class ConfigureDialog(QDialog):
-    '''
+    """
     Configure dialog to present the user with the options to configure this step.
-    '''
+    """
 
     def __init__(self, parent=None):
-        '''
+        """
         Constructor
-        '''
+        """
         QDialog.__init__(self, parent)
         self._ui = Ui_ConfigureDialog()
         self._ui.setupUi(self)
@@ -77,7 +77,7 @@ class ConfigureDialog(QDialog):
             self._ui.elementLineEdit.setStyleSheet(REQUIRED_STYLE_SHEET)
 
         valid = identifier_valid and element_valid
-        self._ui.buttonBox.button(QDialogButtonBox.Ok).setEnabled(valid)
+        self._ui.buttonBox.button(QDialogButtonBox.StandardButton.Ok).setEnabled(valid)
 
         return valid
 
